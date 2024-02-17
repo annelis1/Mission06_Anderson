@@ -10,6 +10,7 @@
 <!--Input form for Movie information-->
 <form class="text-center" method="post">
 
+    <!--Category submissions-->
     <div class="form-group row">
         <label asp-for="Category" class="col-sm-3 col-form-label">Category<span class="text-danger">*</span></label>
         <div class="col-sm-9">
@@ -24,6 +25,7 @@
         </div>
     </div>
 
+    <!--Title submission-->
     <div class="form-group row">
         <label asp-for="Title" class="col-sm-3 col-form-label">Title<span class="text-danger">*</span></label>
         <div class="col-sm-9">
@@ -31,6 +33,7 @@
         </div>
     </div>
 
+    <!--Year submission-->
     <div class="form-group row">
         <label asp-for="Year" class="col-sm-3 col-form-label">Year<span class="text-danger">*</span></label>
         <div class="col-sm-9">
@@ -38,6 +41,7 @@
         </div>
     </div>
 
+    <!--Director submission-->
     <div class="form-group row">
         <label asp-for="Director" class="col-sm-3 col-form-label">Director<span class="text-danger">*</span></label>
         <div class="col-sm-9">
@@ -45,6 +49,7 @@
         </div>
     </div>
 
+    <!--Rating dropdown submission-->
     <div class="form-group row">
         <label asp-for="Rating" class="col-sm-3 col-form-label">Rating<span class="text-danger">*</span></label>
         <div class="col-sm-9">
@@ -58,6 +63,7 @@
         </div>
     </div>
 
+    <!--Edited dropdown submission-->
     <div class="form-group row">
         <label asp-for="Edited" class="col-sm-3 col-form-label">Edited</label>
         <div class="col-sm-9">
@@ -69,6 +75,7 @@
         </div>
     </div>
 
+    <!--Lent to submission-->
     <div class="form-group row">
         <label asp-for="Lent" class="col-sm-3 col-form-label">Lent to</label>
         <div class="col-sm-9">
@@ -76,6 +83,7 @@
         </div>
     </div>
 
+    <!--Notes submission-->
     <div class="form-group row">
         <label asp-for="Notes" class="col-sm-3 col-form-label">Notes</label>
         <div class="col-sm-9">
@@ -83,5 +91,6 @@
         </div>
     </div>
     <br />
+
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

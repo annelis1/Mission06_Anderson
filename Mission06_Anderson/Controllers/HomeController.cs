@@ -31,6 +31,7 @@ namespace Mission06_Anderson.Controllers
             return View();
         }
 
+        //sends submission to database then opens new view
         [HttpPost]
         public IActionResult Movies(Submission response)
         {
