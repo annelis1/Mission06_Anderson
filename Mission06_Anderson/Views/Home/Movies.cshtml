@@ -3,25 +3,26 @@
 *@
 @{
 }
-@model Submission
+@model Movie
 
 <h1 class="text-center display-4">Movie submission</h1>
 
 <!--Input form for Movie information-->
 <form class="text-center" method="post">
 
+    <input type="hidden" asp-for="MovieId"/>
+
     <!--Category submissions-->
     <div class="form-group row">
         <label asp-for="Category" class="col-sm-3 col-form-label">Category<span class="text-danger">*</span></label>
         <div class="col-sm-9">
-            <input asp-for="Category" class="form-control" required placeholder="Action">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label asp-for="Category2" class="col-sm-3 col-form-label">Secondary Category</label>
-        <div class="col-sm-9">
-            <input asp-for="Category2" class="form-control" placeholder="Adventure">
+            <select asp-for="CategoryId">
+                <option value="">Select a Category</option>
+                @foreach (Category c in ViewBag.Categories)
+                {
+                    <option value="@c.CategoryId">@c.CategoryName</option>
+                }
+            </select>
         </div>
     </div>
 
@@ -37,21 +38,21 @@
     <div class="form-group row">
         <label asp-for="Year" class="col-sm-3 col-form-label">Year<span class="text-danger">*</span></label>
         <div class="col-sm-9">
-            <input asp-for="Year" class="form-control" required placeholder="2003">
+            <input asp-for="Year" class="form-control" required placeholder="Year">
         </div>
     </div>
 
     <!--Director submission-->
     <div class="form-group row">
-        <label asp-for="Director" class="col-sm-3 col-form-label">Director<span class="text-danger">*</span></label>
+        <label asp-for="Director" class="col-sm-3 col-form-label">Director</label>
         <div class="col-sm-9">
-            <input asp-for="Director" class="form-control" required placeholder="Directors Full Name">
+            <input asp-for="Director" class="form-control" placeholder="Directors Full Name">
         </div>
     </div>
 
     <!--Rating dropdown submission-->
     <div class="form-group row">
-        <label asp-for="Rating" class="col-sm-3 col-form-label">Rating<span class="text-danger">*</span></label>
+        <label asp-for="Rating" class="col-sm-3 col-form-label">Rating</label>
         <div class="col-sm-9">
             <select asp-for="Rating" class="form-control" required>
                 <option value="" selected disabled>-- Select Rating --</option>
@@ -65,10 +66,10 @@
 
     <!--Edited dropdown submission-->
     <div class="form-group row">
-        <label asp-for="Edited" class="col-sm-3 col-form-label">Edited</label>
+        <label asp-for="Edited" class="col-sm-3 col-form-label">Edited<span class="text-danger">*</span></label>
         <div class="col-sm-9">
-            <select asp-for="Edited" class="form-control">
-                <option value="" selected>--Edited--</option>
+            <select asp-for="Edited" class="form-control" required>
+                <option value="" selected disabled>--Edited--</option>
                 <option value="true">Yes</option>
                 <option value="false">No</option>
             </select>
@@ -77,9 +78,21 @@
 
     <!--Lent to submission-->
     <div class="form-group row">
-        <label asp-for="Lent" class="col-sm-3 col-form-label">Lent to</label>
+        <label asp-for="LentTo" class="col-sm-3 col-form-label">Lent to</label>
         <div class="col-sm-9">
-            <input asp-for="Lent" class="form-control" placeholder="Enter who you have lent it to">
+            <input asp-for="LentTo" class="form-control" placeholder="Enter who you have lent it to">
+        </div>
+    </div>
+
+    <!--CopiedToPlex dropdown submission-->
+    <div class="form-group row">
+        <label asp-for="CopiedToPlex" class="col-sm-3 col-form-label">Copied to Plex<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <select asp-for="CopiedToPlex" class="form-control" required>
+                <option value="" selected disabled>--Copied To Plex--</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
         </div>
     </div>
 
@@ -93,4 +106,6 @@
     <br />
 
     <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div asp-validation-summary="All"></div>
 </form>

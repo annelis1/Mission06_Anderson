@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission06_Anderson.Models;
 using System.Diagnostics;
 
@@ -25,20 +26,88 @@ namespace Mission06_Anderson.Controllers
             return View();
         }
 
+
         [HttpGet]
         public IActionResult Movies()
         {
-            return View();
+
+            // need to load up the viewbag
+            ViewBag.Categories = _context.Categories
+                .OrderBy(x=> x.CategoryName)
+                .ToList();
+
+            return View(new Movie());
         }
 
         //sends submission to database then opens new view
         [HttpPost]
-        public IActionResult Movies(Submission response)
+        public IActionResult Movies(Movie response)
         {
-            _context.Submissions.Add(response); //add record to database
-            _context.SaveChanges();
+            if(ModelState.IsValid)
+            {
+                _context.Movies.Add(response); //add record to database
+                _context.SaveChanges();
+
+                return View("Confirmation");
+            }
+            else
+            {
+                ViewBag.Categories = _context.Categories
+                    .OrderBy(x => x.CategoryName)
+                    .ToList();
+
+                return View(response);
+            }
             
-            return View("Confirmation");
+        }
+        
+        public IActionResult AllMovies()
+        {
+            //linq
+            var movies = _context.Movies.Include("Category")
+                .ToList();
+
+            return View(movies);
+        }
+
+        //Editing records functionality
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var recordToEdit = _context.Movies
+                .Single(x => x.MovieId == id);
+
+            ViewBag.Categories = _context.Categories
+                .OrderBy(x => x.CategoryName)
+                .ToList();
+
+            return View("Movies", recordToEdit);
+        }
+        [HttpPost]
+        public IActionResult Edit(Movie updatedInfo) 
+        {
+            _context.Update(updatedInfo);
+            _context.SaveChanges();
+
+            return RedirectToAction("AllMovies");
+        }
+
+        //Delete records functionality
+        [HttpGet]
+        public IActionResult Delete(int id) 
+        { 
+            var recordToDelete = _context.Movies
+                .Single(x=> x.MovieId==id);
+
+            return View(recordToDelete);
+        }
+        [HttpPost]
+        public IActionResult Delete(Movie movie)
+        {
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+
+            return RedirectToAction("AllMovies");
         }
 
     }
